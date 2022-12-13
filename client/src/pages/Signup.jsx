@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { signin, reset } from "../features/auth/authSlice";
+import { reset, signup } from "../features/auth/authSlice";
 
-function Signin() {
+function Signup() {
   const [userData, setUserData] = useState({
     username: "",
     password: "",
@@ -35,38 +35,49 @@ function Signin() {
       username,
       password,
     };
-    dispatch(signin(userData));
+    dispatch(signup(userData));
   };
 
   return (
-    <>
-      <section>
-        <h1>Sign In</h1>
-        <p>please fill in the appropriate fields</p>
-      </section>
-      <section>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            value={username}
-            onChange={handleChange}
-          />
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            value={password}
-            onChange={handleChange}
-          />
-          <button type="submit">Sign In</button>
-        </form>
-      </section>
-    </>
+    <div className="container">
+      <div className="row">
+        <div className="col-12">
+          <h1 className="mt-5">Sign Up</h1>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label htmlFor="username" className="form-label">
+                Username
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="username"
+                name="username"
+                value={username}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label">
+                Password
+              </label>
+              <input
+                type="password"
+                className="form-control"
+                id="password"
+                name="password"
+                value={password}
+                onChange={handleChange}
+              />
+            </div>
+            <button type="submit" className="btn btn-primary">
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 }
 
-export default Signin;
+export default Signup;

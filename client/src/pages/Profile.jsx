@@ -23,22 +23,19 @@ function Profile() {
   }, [user, navigate, rejected, message, dispatch]);
 
   return (
-    <>
-      <section>
-        <h1>Welcome {user.username}</h1>
-        <p>Here are your tasks</p>
-      </section>
-      <TaskForm />
-      <section>
-        {tasks.length > 0 ? (
-          tasks.map((task) => {
-            return <TaskItem key={task._id} task={task} />;
-          })
-        ) : (
-          <p>No tasks</p>
-        )}
-      </section>
-    </>
+    <div className="container">
+      <div className="row">
+        <div className="col-12">
+          <h1 className="mt-5">Hello {user.username}</h1>
+          <TaskForm />
+          <ul className="list-group">
+            {tasks.map((task) => (
+              <TaskItem key={task._id} task={task} />
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
   );
 }
 

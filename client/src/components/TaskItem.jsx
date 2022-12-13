@@ -10,10 +10,12 @@ function TaskItem({ task }) {
   };
 
   return (
-    <div>
-      <span>{task.text}</span>
-      <button onClick={handleDelete}>Delete</button>
-    </div>
+    <li className="list-group-item d-flex justify-content-between align-items-center">
+      {task.text}
+      <button className="btn btn-danger" onClick={handleDelete}>
+        Delete
+      </button>
+    </li>
   );
 }
 

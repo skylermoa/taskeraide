@@ -18,15 +18,22 @@ function TaskForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="text">Task</label>
-      <input
-        type="text"
-        id="text"
-        name="text"
-        value={text}
-        onChange={handleChange}
-      />
-      <button type="submit">Add Task</button>
+      <div className="mb-3">
+        <label htmlFor="text" className="form-label">
+          Enter a task:
+        </label>
+        <input
+          type="text"
+          className="form-control"
+          id="text"
+          name="text"
+          value={text}
+          onChange={handleChange}
+        />
+      </div>
+      <button type="submit" className="btn btn-primary mb-3">
+        Add
+      </button>
     </form>
   );
 }
