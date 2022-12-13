@@ -3,7 +3,7 @@ const asyncHandler = require("express-async-handler");
 
 const createTask = asyncHandler(async (req, res) => {
   if (!req.body.text) {
-    res.json({ message: "Text is required" });
+    throw new Error("Please provide text");
   }
   const task = await Task.create({
     user: req.user.id,
@@ -22,7 +22,7 @@ const updateTask = asyncHandler(async (req, res) => {
   if (!task) throw new Error("Task not found");
   if (!req.user) throw new Error("User not found");
   if (task.user.toString() !== req.user.id)
-    res.json({ message: "User not authorized" });
+    throw new Error("User not authorized");
 
   const updatedTask = await Task.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
@@ -36,7 +36,7 @@ const deleteTask = asyncHandler(async (req, res) => {
   if (!task) throw new Error("Task not found");
   if (!req.user) throw new Error("User not found");
   if (task.user.toString() !== req.user.id)
-    res.json({ message: "User not authorized" });
+    throw new Error("User not authorized");
   await task.remove();
   res.json({ id: req.params.id });
 });

@@ -12,11 +12,11 @@ const createToken = (id) => {
 const signUp = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
-    res.json({ message: "Please enter all fields" });
+    throw new Error("Please provide username and password");
   }
   const userExists = await User.findOne({ username });
   if (userExists) {
-    res.json({ message: "User already exists" });
+    throw new Error("User already exists");
   }
   const hashedPassword = await bcrypt.hash(password, 10);
   const user = await User.create({
@@ -30,7 +30,7 @@ const signUp = asyncHandler(async (req, res) => {
       token: createToken(user._id),
     });
   } else {
-    res.json({ message: "Invalid user data" });
+    throw new Error("Invalid user data");
   }
 });
 
@@ -44,7 +44,7 @@ const signIn = asyncHandler(async (req, res) => {
       token: createToken(user._id),
     });
   } else {
-    res.json({ message: "Invalid username or password" });
+    throw new Error("Invalid username or password");
   }
 });
 
