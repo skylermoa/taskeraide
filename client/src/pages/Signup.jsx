@@ -17,18 +17,21 @@ function Signup() {
 
   useEffect(() => {
     if (rejected) {
-      alert(message);
+      alert(message); // show the error message
     }
     if (fulfilled || user) {
-      navigate("/profile");
+      // if the user is logged in
+      navigate("/profile"); // redirect to the profile page
     }
-    dispatch(reset());
+    dispatch(reset()); // reset the state of the auth slice
   }, [user, fulfilled, rejected, message, navigate, dispatch]);
 
+  // handle the change of the input fields
   const handleChange = (event) => {
     setUserData({ ...userData, [event.target.name]: event.target.value });
   };
 
+  // handle the form submission
   const handleSubmit = (event) => {
     event.preventDefault();
     const userData = {

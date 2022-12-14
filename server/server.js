@@ -6,13 +6,18 @@ const userRoutes = require("./routes/userRoutes");
 const taskRoutes = require("./routes/taskRoutes");
 const PORT = process.env.PORT || 3000;
 
+// Initialize express
 const app = express();
 
+// Middlewares
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+// Routes
 app.use("/api/users", userRoutes);
 app.use("/api/tasks", taskRoutes);
 
+// Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
   app.get("*", (req, res) => {
@@ -20,6 +25,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+// Connect to MongoDB
 mongoose
   .connect(process.env.DB_URI)
   .then(() => {

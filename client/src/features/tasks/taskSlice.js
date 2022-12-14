@@ -13,10 +13,11 @@ export const createTask = createAsyncThunk(
   "tasks/createTask",
   async (taskData, thunkAPI) => {
     try {
+      // Get token from state
       const token = thunkAPI.getState().auth.user.token;
-      return await taskApi.createTask(taskData, token);
+      return await taskApi.createTask(taskData, token); // Call createTask from taskApi.js
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue(error.response.data); // Return error message
     }
   }
 );
@@ -24,11 +25,12 @@ export const createTask = createAsyncThunk(
 export const getTasks = createAsyncThunk(
   "tasks/getTasks",
   async (_, thunkAPI) => {
+    // _ means no argument
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await taskApi.getTasks(token);
+      return await taskApi.getTasks(token); // Call getTasks from taskApi.js
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue(error.response.data); // Return error message
     }
   }
 );
@@ -38,13 +40,14 @@ export const deleteTask = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await taskApi.deleteTask(id, token);
+      return await taskApi.deleteTask(id, token); // Call deleteTask from taskApi.js
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue(error.response.data); // Return error message
     }
   }
 );
 
+// Slice
 export const taskSlice = createSlice({
   name: "task",
   initialState,

@@ -17,25 +17,27 @@ function Signin() {
 
   useEffect(() => {
     if (rejected) {
-      alert(message);
+      alert(message); // show the error message
     }
     if (fulfilled || user) {
-      navigate("/profile");
+      navigate("/profile"); // redirect to the profile page
     }
-    dispatch(reset());
+    dispatch(reset()); // reset the state of the auth slice
   }, [user, fulfilled, rejected, message, navigate, dispatch]);
 
+  // handle the change of the input fields
   const handleChange = (event) => {
     setUserData({ ...userData, [event.target.name]: event.target.value });
   };
 
+  // handle the form submission
   const handleSubmit = (event) => {
     event.preventDefault();
     const userData = {
       username,
       password,
     };
-    dispatch(signin(userData));
+    dispatch(signin(userData)); // dispatch the signin method
   };
 
   return (

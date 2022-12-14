@@ -4,11 +4,13 @@ const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 
 const createToken = (id) => {
+  // Creates a token with the user id and the secret token
   return jwt.sign({ id }, process.env.TOKEN_SECRET, {
-    expiresIn: "24h",
+    expiresIn: "24h", // Expires in 24 hours
   });
 };
 
+// Sign up
 const signUp = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -34,6 +36,7 @@ const signUp = asyncHandler(async (req, res) => {
   }
 });
 
+// Sign in
 const signIn = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username });
@@ -48,6 +51,7 @@ const signIn = asyncHandler(async (req, res) => {
   }
 });
 
+// Get user profile
 const profile = asyncHandler(async (req, res) => {
   res.json(req.user);
 });

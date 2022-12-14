@@ -24,6 +24,7 @@ function Header() {
               </Link>
               <div className="navbar-collapse">
                 <ul className="navbar-nav ms-auto">
+                  {/* if the user is signed in, show the profile and signout links */}
                   {user ? (
                     <>
                       <li className="nav-item">

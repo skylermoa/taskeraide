@@ -1,8 +1,10 @@
 const Task = require("../models/taskModel");
 const asyncHandler = require("express-async-handler");
 
+// Create a task
 const createTask = asyncHandler(async (req, res) => {
   if (!req.body.text) {
+    // empty body
     throw new Error("Please provide text");
   }
   const task = await Task.create({
@@ -12,24 +14,13 @@ const createTask = asyncHandler(async (req, res) => {
   res.json(task);
 });
 
+// Get all tasks
 const getTasks = asyncHandler(async (req, res) => {
-  const tasks = await Task.find({ user: req.user.id });
+  const tasks = await Task.find({ user: req.user.id }); // Find all tasks that belong to the user
   res.json(tasks);
 });
 
-const updateTask = asyncHandler(async (req, res) => {
-  const task = await Task.findById(req.params.id);
-  if (!task) throw new Error("Task not found");
-  if (!req.user) throw new Error("User not found");
-  if (task.user.toString() !== req.user.id)
-    throw new Error("User not authorized");
-
-  const updatedTask = await Task.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
-  res.json(updatedTask);
-});
-
+// Delete a task
 const deleteTask = asyncHandler(async (req, res) => {
   const task = await Task.findById(req.params.id);
 
@@ -44,6 +35,5 @@ const deleteTask = asyncHandler(async (req, res) => {
 module.exports = {
   createTask,
   getTasks,
-  updateTask,
   deleteTask,
 };

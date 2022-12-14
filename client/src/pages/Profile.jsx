@@ -13,13 +13,13 @@ function Profile() {
 
   useEffect(() => {
     if (rejected) {
-      alert(message);
+      alert(message); // show the error message
     }
     if (!user) {
-      navigate("/");
+      navigate("/"); // redirect to the home page
     }
     dispatch(getTasks());
-    dispatch(reset());
+    dispatch(reset()); // reset the state of the task slice
   }, [user, navigate, rejected, message, dispatch]);
 
   return (
@@ -29,6 +29,7 @@ function Profile() {
           <h1 className="mt-5">Hello {user.username}</h1>
           <TaskForm />
           <ul className="list-group">
+            {/* show all the tasks of the user */}
             {tasks.map((task) => (
               <TaskItem key={task._id} task={task} />
             ))}

@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authApi from "./authApi";
 
-const user = JSON.parse(localStorage.getItem("user"));
+const user = JSON.parse(localStorage.getItem("user")); // Get user data from local storage
 
 const initialState = {
-  user: user ? user : null,
+  user: user ? user : null, // If user data exists, set user to user data, otherwise set user to null
   pending: false,
   fulfilled: false,
   rejected: false,
@@ -15,9 +15,9 @@ export const signup = createAsyncThunk(
   "auth/signup",
   async (user, thunkAPI) => {
     try {
-      return await authApi.signup(user);
+      return await authApi.signup(user); // Call signup from authApi.js
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue(error.response.data); // Return error message
     }
   }
 );
@@ -26,17 +26,18 @@ export const signin = createAsyncThunk(
   "auth/signin",
   async (user, thunkAPI) => {
     try {
-      return await authApi.signin(user);
+      return await authApi.signin(user); // Call signin from authApi.js
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue(error.response.data); // Return error message
     }
   }
 );
 
 export const signout = createAsyncThunk("auth/signout", async () => {
-  authApi.signout();
+  authApi.signout(); // Call signout from authApi.js
 });
 
+// Slice
 export const authSlice = createSlice({
   name: "auth",
   initialState,
